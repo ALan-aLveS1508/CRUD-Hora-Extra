@@ -1,0 +1,15 @@
+D:\VS\Framework\bin\Debug\Framework.exe.config
+D:\VS\Framework\bin\Debug\Framework.exe
+D:\VS\Framework\bin\Debug\Framework.pdb
+D:\VS\Framework\bin\Debug\EntityFramework.dll
+D:\VS\Framework\bin\Debug\EntityFramework.SqlServer.dll
+D:\VS\Framework\bin\Debug\EntityFramework.xml
+D:\VS\Framework\bin\Debug\EntityFramework.SqlServer.xml
+D:\VS\Framework\obj\Debug\Framework.csproj.AssemblyReference.cache
+D:\VS\Framework\obj\Debug\Framework.CRUD.resources
+D:\VS\Framework\obj\Debug\Framework.Properties.Resources.resources
+D:\VS\Framework\obj\Debug\Framework.csproj.GenerateResource.cache
+D:\VS\Framework\obj\Debug\Framework.csproj.CoreCompileInputs.cache
+D:\VS\Framework\obj\Debug\Framework.csproj.CopyComplete
+D:\VS\Framework\obj\Debug\Framework.exe
+D:\VS\Framework\obj\Debug\Framework.pdb
