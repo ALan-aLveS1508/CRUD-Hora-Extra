@@ -102,53 +102,57 @@ namespace teste_2
         private void btn_salvar_Click(object sender, EventArgs e)
         {
             try
-            {
-                model.nome = txt_nome.Text.Trim();
-                model.telefone = mtb_telefone.Text.Trim();
-                model.rg = mtb_rg.Text.Trim();
-                model.endereco = txt_endereco.Text.Trim();
-                model.salario = txt_salario.Text.Trim();
+    {
+        model.nome = txt_nome.Text.Trim();
+        model.telefone = mtb_telefone.Text.Trim();
+        model.rg = mtb_rg.Text.Trim();
+        model.endereco = txt_endereco.Text.Trim();
+        model.salario = txt_salario.Text.Trim();
 
-                using (EFDBEntities db = new EFDBEntities())
+        using (EFDBEntities db = new EFDBEntities())
+        {
+            if (cbo_funcionarios.SelectedIndex != 0) // Se um funcionário estiver selecionado no combobox
+            {
+                // Atualizar o funcionário selecionado
+                int idfuncionario = ((Funcionario)cbo_funcionarios.SelectedItem).idfuncionarios;
+                var existingFuncionario = db.Funcionario.FirstOrDefault(f => f.idfuncionarios == idfuncionario);
+                if (existingFuncionario != null)
                 {
-                    if (isNew) // Se for um novo funcionário
-                    {
-                        MessageBox.Show("Selecione um funcionário existente para atualizar ou cancele para criar um novo.", "Aviso");
-                        return; // Sai da função sem fazer nada se for um novo funcionário
-                    }
+                    existingFuncionario.nome = model.nome;
+                    existingFuncionario.telefone = model.telefone;
+                    existingFuncionario.rg = model.rg;
+                    existingFuncionario.endereco = model.endereco;
+                    existingFuncionario.salario = model.salario;
 
-                    var existingFuncionario = db.Funcionario.FirstOrDefault(f => f.idfuncionarios == model.idfuncionarios);
-                    if (existingFuncionario != null)
-                    {
-                        existingFuncionario.nome = model.nome;
-                        existingFuncionario.telefone = model.telefone;
-                        existingFuncionario.rg = model.rg;
-                        existingFuncionario.endereco = model.endereco;
-                        existingFuncionario.salario = model.salario;
-
-                        db.Entry(existingFuncionario).State = EntityState.Modified;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Funcionário não encontrado para atualização.");
-                        return; // Sai da função se o funcionário não for encontrado
-                    }
-
-                    db.SaveChanges();
-                    // Recarregar dados no combobox
-                    Carregar_funcionarios();
+                    db.Entry(existingFuncionario).State = System.Data.Entity.EntityState.Modified;
+                    MessageBox.Show("Cadastro atualizado com sucesso");
                 }
-                Clear();
-                MessageBox.Show("Cadastro atualizado com sucesso");
+                else
+                {
+                    MessageBox.Show("Funcionário não encontrado para atualização.");
+                }
             }
-            catch (FormatException ex)
+            else
             {
-                MessageBox.Show("Por favor, verifique se os valores numéricos estão em um formato válido.", "Erro");
+                // Criar um novo funcionário
+                db.Funcionario.Add(model);
+                MessageBox.Show("Novo cadastro criado com sucesso");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ocorreu um erro ao salvar o cadastro: " + ex.Message, "Erro");
-            }
+
+            db.SaveChanges();
+            // Recarregar dados no combobox
+            Carregar_funcionarios();
+        }
+        Clear();
+    }
+    catch (FormatException ex)
+    {
+        MessageBox.Show("Por favor, verifique se os valores numéricos estão em um formato válido.", "Erro");
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Ocorreu um erro ao salvar o cadastro: " + ex.Message, "Erro");
+    }
         }
 
         private void Form1_Load(object sender, EventArgs e)
