@@ -88,15 +88,19 @@ namespace teste_2
         private void cbo_funcionarios_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
-            {
-                int idfuncionario = (int)cbo_funcionarios.SelectedValue; // Extrair o ID do item selecionado no combobox
-                if (idfuncionario > 0)
-                    Buscar_funcionarios(idfuncionario);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+{
+    int idfuncionario = (int)cbo_funcionarios.SelectedValue; // Extrair o ID do item selecionado no combobox
+    if (idfuncionario > 0)
+        Buscar_funcionario(idfuncionario);
+    else
+        Clear(); //Limpar os campos se nenhum funcionario estiver selecionado
+    txt_horaextra.Text = ""; // Limpar o campo txt_horaextra
+}
+catch (Exception ex) 
+{
+    MessageBox.Show(ex.Message);
+}
+               
         }
 
         private void btn_salvar_Click(object sender, EventArgs e)
@@ -208,18 +212,19 @@ namespace teste_2
         private void btn_calcular_Click(object sender, EventArgs e)
         {
             try
-            {
-                decimal salarioAtual = decimal.Parse(txt_salario.Text);
-                int horasExtras = int.Parse(txt_horaExtra.Text);
+{
+    decimal salarioAtual = decimal.Parse(txt_salario.Text);
+    int horasExtras = int.Parse(txt_horaextra.Text);
 
-                decimal valorHoraExtra = CalculadoraHoraExtra.Calcular(salarioAtual, horasExtras);
+    decimal valorHoraExtra = CalculadoraHoraExtra.Calcular(salarioAtual, horasExtras);
+    decimal total = salarioAtual + valorHoraExtra; // soma do salario com a hora extra
 
-                txt_horaExtra.Text = valorHoraExtra.ToString("C");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Por favor, insira um valor válido para o salário e as horas extras.");
-            }
+    txt_horaextra.Text = total.ToString("C");
+}
+catch(Exception ex)
+{
+    MessageBox.Show("Por favor, insira um valor valido para o salario e as horas extras.");
+}
         }
     }
 }
